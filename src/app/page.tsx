@@ -1,42 +1,15 @@
 'use client';
 import Image from "next/image";
 import styles from "./page.module.css";
-import { InputLabel } from "./ui/input_label";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-const schema = z.object({
-    name: z.string().min(1, "名前は必須です"),
-    email: z.string().min(1, "Emailは必須です").email("Invalid email "),
-})
-type FormValues = z.infer<typeof schema>;
+import Link from "next/link";
 export default function Home() {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<FormValues>({
-        resolver: zodResolver(schema),
-    });
-    const onSubmit = (data: any) => {
-        console.log(data);
-    };
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles.field}>
-            <input type="text"  placeholder="名前" {...register('name')}/>
-            {errors.name && <p className={styles.error}>{errors.name.message}</p>}
-            </div>
-            <div className={styles.field}>
-                <input type="email" placeholder="Email" {...register('email')}/>
-                {errors.email && <p className={styles.error}>{errors.email.message}</p>}
-            </div>
-            <div className={styles.field}>
-                <button type="submit">Submit</button>
-            </div>
-        </form>
+        <Link href="/form0" className={styles.link}>
+        form sample(useForm)
+        </Link>
+        
       </main>
       <footer className={styles.footer}>
         <a
