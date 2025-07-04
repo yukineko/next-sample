@@ -6,8 +6,11 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Link href="/form0" className={styles.link}>
+        <Link href="/form0/input" className={styles.link}>
         form sample(useForm)
+        </Link>
+        <Link href="/form_action" className={styles.link}>
+        form action
         </Link>
         
       </main>

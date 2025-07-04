@@ -1,31 +1,37 @@
 'use client';
 import Image from "next/image";
 import styles from "./page.module.css";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-const schema = z.object({
-    name: z.string().min(1, "名前は必須です"),
-    email: z.string().min(1, "Emailは必須です").email("Invalid email "),
-    address: z.string().min(1, "住所は必須です"),
-    gender: z.enum(["male", "female"], {
-        errorMap: () => ({ message: "性別は必須です" }),
-    }),
-    agree: z.boolean().refine((val) => val === true, {
-        message: "利用規約に同意する必要があります"
-    })
-});
-type FormValues = z.infer<typeof schema>;
+import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { FormValues } from "../layout"; // Adjust the import path as necessary
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { z } from "zod";
+// const schema = z.object({
+//     name: z.string().min(1, "名前は必須です"),
+//     email: z.string().min(1, "Emailは必須です").email("Invalid email "),
+//     address: z.string().min(1, "住所は必須です"),
+//     gender: z.enum(["male", "female"], {
+//         errorMap: () => ({ message: "性別は必須です" }),
+//     }),
+//     agree: z.boolean().refine((val) => val === true, {
+//         message: "利用規約に同意する必要があります"
+//     })
+// });
+// type FormValues = z.infer<typeof schema>;
 export default function Home() {
-    const {
+    const router = useRouter();
+    // const methods = useFormContext<FormValues>({
+    //     resolver: zodResolver(schema),
+    // });
+    const methods = useFormContext<FormValues>()
+     const {
         register,
         handleSubmit,
-        formState: { errors },
-    } = useForm<FormValues>({
-        resolver: zodResolver(schema),
-    });
+        formState: { errors }} 
+        = methods
+
     const onSubmit = (data: any) => {
-        console.log(data);
+        router.push('/form0/confirm')
     };
     return (
         <div className={styles.page}>
